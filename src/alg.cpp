@@ -12,10 +12,7 @@ int math (int &frst, int &scnd, char &smb)
             }
         case '/':
             {
-                std::cout << "////" << std::endl;
-                std::cout << "frst = " << frst << " scnd = " << scnd << std::endl;  
                 scnd /= frst;
-                std::cout << "scnd = " << scnd << std::endl;
                 return scnd;
             }
         case '+':
@@ -65,10 +62,8 @@ std::string infx2pstfx(std::string inf) {
         }
        else
         {
-            std::cout << "0" << std::endl;
            prior = priority (ch);
            priorTop = priority (chPrv);
-           std::cout << "ch = " << ch << " prior = " << prior << std::endl;
            if ((stack1.isEmpty() ||  prior > priorTop || !prior) && prior != 1)
                stack1.push(ch);
            else
@@ -77,7 +72,6 @@ std::string infx2pstfx(std::string inf) {
                {
                    while (stack1.get() != '(')
                    {
-                       std::cout << "1" << std::endl;
                        result.push_back(stack1.get());
                        stack1.pop();
                    }
@@ -89,8 +83,6 @@ std::string infx2pstfx(std::string inf) {
                    {
                        while (!stack1.isEmpty() && stack1.get() != '(')
                        {
-                           std::cout << "2" << std::endl;
-                           std::cout << "stack1.get() = " << stack1.get() << std::endl;
                            result.push_back(stack1.get());
                            stack1.pop();
                        }
@@ -103,7 +95,6 @@ std::string infx2pstfx(std::string inf) {
     }
     while (!stack1.isEmpty ())
     {
-        std::cout << "3" << std::endl;
         result.push_back(stack1.get());
         stack1.pop();
     }
@@ -121,10 +112,8 @@ int eval(std::string pst) {
     for (int i = 0; i < source.length(); i++)
     {
         ch = source[i];
-        std::cout << "ch = " << ch << std::endl;
         if (ch >= '0' && ch <= '9')
         {
-            std::cout << "stack2.get (): "<< stack2.get () << std::endl;
             stack2.push (ch - 48);
         }
         else
