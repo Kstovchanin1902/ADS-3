@@ -52,7 +52,8 @@ std::string infx2pstfx(std::string inf) {
     int priorTop = 0;
     char ch = ' ';
     char chPrv = ' ';
-    for (int i = 0; i < source.length(); i++)
+    int lengthArr = <int> source.length();
+    for (int i = 0; i < lengthArr; i++)
     {
        ch = source[i];
        chPrv = stack1.get();
@@ -109,7 +110,8 @@ int eval(std::string pst) {
     int frst = 0, scnd = 0;
     char ch = ' ';
     char chPrv = ' ';
-    for (int i = 0; i < source.length(); i++)
+    int lengthArr = <int> source.length();
+    for (int i = 0; i < length; i++)
     {
         ch = source[i];
         if (ch >= '0' && ch <= '9')
