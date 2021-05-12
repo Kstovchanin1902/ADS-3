@@ -1,10 +1,8 @@
 // Copyright 2021 NNTU-CS
 #include <string>
 #include "tstack.h"
-int math (int &frst, int &scnd, char &smb)
-{
-    switch (smb)
-    {
+int math (int frst, int scnd, char smb) {
+    switch (smb) {
         case '*':
             {
                 scnd *= frst;
@@ -30,20 +28,17 @@ int math (int &frst, int &scnd, char &smb)
     }
     return scnd;
 }
-int priority (char &ch)
-{
+int priority(char ch) {
     int prior = 0;
     if (ch == '(') 
         prior = 0;
-
     if (ch == ')')
         prior = 1;
     if (ch == '+' || ch == '-')
         prior = 2;
     if (ch == '*' || ch == '/')
-        prior = 3; 
+        prior = 3;
     return prior;
-
 }
 std::string infx2pstfx(std::string inf) {
     TStack<char> stack1;
@@ -58,31 +53,28 @@ std::string infx2pstfx(std::string inf) {
        chPrv = stack1.get();
        if (ch >= '0' && ch <= '9') {
            if (!firstNum) {
-                firstNum = true;   
-           }
-           else {
+                firstNum = true;
+           } else {
                result.push_back(' ');
            }
-           result.push_back (ch);
-        }
-       else {
-           prior = priority (ch);
-           priorTop = priority (chPrv);
+           result.push_back(ch);
+        } else {
+           prior = priority(ch);
+           priorTop = priority(chPrv);
            if ((stack1.isEmpty() ||  prior > priorTop || !prior) && prior != 1)
                stack1.push(ch);
            else {
                if (prior == 1) {
                    while (stack1.get() != '(') {
-                       result.push_back (' ');
+                       result.push_back(' ');
                        result.push_back(stack1.get());
                        stack1.pop();
                    }
                    stack1.pop();
-               }
-               else {
+               } else {
                    if (prior <= priorTop && prior > 1) {
                        while (!stack1.isEmpty() && stack1.get() != '(') {
-                           result.push_back (' ');
+                           result.push_back(' ');
                            result.push_back(stack1.get());
                            stack1.pop();
                        }
@@ -94,13 +86,13 @@ std::string infx2pstfx(std::string inf) {
 
     }
     while (!stack1.isEmpty ()) {
-        result.push_back (' ');
+        result.push_back(' ');
         result.push_back(stack1.get());
         stack1.pop();
     }
     return result;
 }
-int eval (std::string pst)
+int eval(std::string pst)
 {
     int result = 0;
     TStack<char> stack1;
@@ -113,15 +105,14 @@ int eval (std::string pst)
         ch = pst[i];
         if (ch != ' ') {
             if (ch >= '0' && ch <= '9') {
-                stack2.push (ch - 48);
-            }
-            else {
-                frst = stack2.get ();
-                stack2.pop ();
-                scnd = stack2.get ();
-                stack2.pop ();
-                scnd = math (frst, scnd, ch);
-                stack2.push (scnd);
+                stack2.push(ch - 48);
+            } else {
+                frst = stack2.get();
+                stack2.pop();
+                scnd = stack2.get();
+                stack2.pop();
+                scnd = math(frst, scnd, ch);
+                stack2.push(scnd);
             }
         }
     }
