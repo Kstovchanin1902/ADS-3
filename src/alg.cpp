@@ -46,7 +46,7 @@ int priority (char &ch)
 
 }
 std::string infx2pstfx(std::string inf) {
-  TStack<char> stack1;
+    TStack<char> stack1;
     std::string result;
     int prior = -1;
     int priorTop = 0;
@@ -57,13 +57,19 @@ std::string infx2pstfx(std::string inf) {
        ch = inf[i];
        chPrv = stack1.get();
        if (ch >= '0' && ch <= '9')
-        {
+       {
+           if (i != 0)
+           {
+               result.push_back (' ');
+           }
            result.push_back (ch);
-        }
+       }
        else
         {
+            std::cout << "0" << std::endl;
            prior = priority (ch);
            priorTop = priority (chPrv);
+           std::cout << "ch = " << ch << " prior = " << prior << std::endl;
            if ((stack1.isEmpty() ||  prior > priorTop || !prior) && prior != 1)
                stack1.push(ch);
            else
@@ -72,6 +78,8 @@ std::string infx2pstfx(std::string inf) {
                {
                    while (stack1.get() != '(')
                    {
+                       std::cout << "1" << std::endl;
+                       result.push_back (' ');
                        result.push_back(stack1.get());
                        stack1.pop();
                    }
@@ -83,6 +91,9 @@ std::string infx2pstfx(std::string inf) {
                    {
                        while (!stack1.isEmpty() && stack1.get() != '(')
                        {
+                           std::cout << "2" << std::endl;
+                           std::cout << "stack1.get() = " << stack1.get() << std::endl;
+                           result.push_back (' ');
                            result.push_back(stack1.get());
                            stack1.pop();
                        }
@@ -95,6 +106,8 @@ std::string infx2pstfx(std::string inf) {
     }
     while (!stack1.isEmpty ())
     {
+        std::cout << "3" << std::endl;
+        result.push_back (' ');
         result.push_back(stack1.get());
         stack1.pop();
     }
@@ -102,7 +115,7 @@ std::string infx2pstfx(std::string inf) {
 }
 
 int eval(std::string pst) {
-  int result = 0;
+    int result = 0;
     TStack<char> stack1;
     TStack<int> stack2;
     int prior = 0, priorPrv = 0;
@@ -112,18 +125,23 @@ int eval(std::string pst) {
     for (int i = 0; i < pst.length(); i++)
     {
         ch = pst[i];
-        if (ch >= '0' && ch <= '9')
+        std::cout << "ch = " << ch << std::endl;
+        if (ch != ' ')
         {
-            stack2.push (ch - 48);
-        }
-        else
-        {
-            frst = stack2.get ();
-            stack2.pop ();
-            scnd = stack2.get ();
-            stack2.pop ();
-            scnd = math (frst, scnd, ch);
-            stack2.push (scnd);
+            if (ch >= '0' && ch <= '9')
+            {
+                std::cout << "stack2.get (): "<< stack2.get () << std::endl;
+                stack2.push (ch - 48);
+            }
+            else
+            {
+                frst = stack2.get ();
+                stack2.pop ();
+                scnd = stack2.get ();
+                stack2.pop ();
+                scnd = math (frst, scnd, ch);
+                stack2.push (scnd);
+            }
         }
     }
     return stack2.get ();
