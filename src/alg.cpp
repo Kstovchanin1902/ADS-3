@@ -100,7 +100,7 @@ std::string infx2pstfx(std::string inf) {
     }
     return result;
 }
-int eval (std::string &pst)
+int eval (std::string pst)
 {
     int result = 0;
     TStack<char> stack1;
