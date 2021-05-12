@@ -61,7 +61,8 @@ std::string infx2pstfx(std::string inf) {
         } else {
            prior = priority(ch);
            priorTop = priority(chPrv);
-           if ((stack1.isEmpty() ||  prior > priorTop || !prior) && prior != 1) {
+           if ((stack1.isEmpty() ||  prior > priorTop || !prior) 
+               && prior != 1) {
                stack1.push(ch);
            } else {
                if (prior == 1) {
