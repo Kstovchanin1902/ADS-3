@@ -111,7 +111,6 @@ int eval (std::string &pst)
     char chPrv = ' ';
     for (int i = 0; i < pst.length(); i++) {
         ch = pst[i];
-        std::cout << "ch = " << ch << std::endl;
         if (ch != ' ') {
             if (ch >= '0' && ch <= '9') {
                 stack2.push (ch - 48);
