@@ -1,7 +1,7 @@
 // Copyright 2021 NNTU-CS
 #include <string>
 #include "tstack.h"
-int math (int frst, int scnd, char smb) {
+int math(int frst, int scnd, char smb) {
     switch (smb) {
         case '*':
             {
@@ -30,7 +30,7 @@ int math (int frst, int scnd, char smb) {
 }
 int priority(char ch) {
     int prior = 0;
-    if (ch == '(') 
+    if (ch == '(')
         prior = 0;
     if (ch == ')')
         prior = 1;
@@ -61,9 +61,9 @@ std::string infx2pstfx(std::string inf) {
         } else {
            prior = priority(ch);
            priorTop = priority(chPrv);
-           if ((stack1.isEmpty() ||  prior > priorTop || !prior) && prior != 1)
+           if ((stack1.isEmpty() ||  prior > priorTop || !prior) && prior != 1) {
                stack1.push(ch);
-           else {
+           } else {
                if (prior == 1) {
                    while (stack1.get() != '(') {
                        result.push_back(' ');
@@ -83,17 +83,15 @@ std::string infx2pstfx(std::string inf) {
                }
            }
         }
-
     }
-    while (!stack1.isEmpty ()) {
+    while (!stack1.isEmpty()) {
         result.push_back(' ');
         result.push_back(stack1.get());
         stack1.pop();
     }
     return result;
 }
-int eval(std::string pst)
-{
+int eval(std::string pst) {
     int result = 0;
     TStack<char> stack1;
     TStack<int> stack2;
